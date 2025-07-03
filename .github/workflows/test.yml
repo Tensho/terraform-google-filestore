@@ -12,6 +12,13 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test-file:
+          - tests/basic.tftest.hcl
+          - tests/backup.tftest.hcl
+          - tests/advanced.tftest.hcl
+          - tests/validations.tftest.hcl
     steps:
       - uses: actions/checkout@v4
 
@@ -28,4 +35,4 @@ jobs:
 
       - run: terraform init
 
-      - run: terraform test
+      - run: terraform test -filter ${{ matrix.test-file }}
