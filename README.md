@@ -53,7 +53,7 @@ module "example" {
 }
 ```
 
-Check out comprehensive examples in [`test`](./test) folder.
+Check out comprehensive examples in [`tests`](./tests) folder.
 
 ## Features
 
