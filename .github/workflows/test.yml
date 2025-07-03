@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize]
 
 permissions:
   id-token: write
@@ -35,4 +39,4 @@ jobs:
 
       - run: terraform init
 
-      - run: terraform test -filter ${{ matrix.test-file }}
+      - run: terraform test -filter ${{ matrix['test-file'] }}
