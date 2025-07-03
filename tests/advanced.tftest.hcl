@@ -31,7 +31,7 @@ run "advanced" {
       network           = "default"
       modes             = ["MODE_IPV4"]
       connect_mode      = "DIRECT_PEERING"
-      reserved_ip_range = "10.10.0.0/24"
+      reserved_ip_range = "10.0.0.0/24"
     }
 
     # kms_key_name = "projects/test/locations/global/keyRings/test/cryptoKeys/test"
