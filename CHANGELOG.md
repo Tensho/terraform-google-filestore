@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.1](https://github.com/Tensho/terraform-google-filestore/compare/v1.1.0...v1.1.1) (2025-07-03)
+
+
+### Bug Fixes
+
+* auto_backup_function_storage_bucket_name input vairable description ([2f0bf5d](https://github.com/Tensho/terraform-google-filestore/commit/2f0bf5dedba4b120ab4951387da785b42d841e0e))
+* deletion_protection_enabled input variable type ([0f16891](https://github.com/Tensho/terraform-google-filestore/commit/0f168910681d796238d477f21bf086cce392c037))
+* undefined locals when automatic backups are disabled ([eb2ad99](https://github.com/Tensho/terraform-google-filestore/commit/eb2ad99395e2d2b42d9a411d82eb81790d5a85fb))
+
 ## [1.1.0](https://github.com/Tensho/terraform-google-filestore/compare/v1.0.0...v1.1.0) (2024-12-20)
 
 
