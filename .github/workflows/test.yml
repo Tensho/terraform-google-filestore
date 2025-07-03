@@ -40,3 +40,6 @@ jobs:
       - run: terraform init
 
       - run: terraform test -filter ${{ matrix['test-file'] }}
+        env:
+          GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
+          GOOGLE_REGION: ${{ vars.GOOGLE_REGION }}
