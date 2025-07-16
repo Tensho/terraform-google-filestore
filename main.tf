@@ -107,7 +107,7 @@ resource "google_cloud_run_service_iam_binding" "filestore_backup_scheduler_invo
 resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
   count = var.enable_auto_backup ? 1 : 0
 
-  project = data.google_client_config.current[0].project
+  project = data.google_client_config.current.project
 
   role = "roles/file.editor"
 
