@@ -95,6 +95,7 @@ No modules.
 | [google_cloudfunctions2_function.backup](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloudfunctions2_function) | resource |
 | [google_filestore_instance.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/filestore_instance) | resource |
 | [google_project_iam_binding.filestore_backup_runner_file_editor](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_binding) | resource |
+| [google_project_iam_member.filestore_backup_runner_list](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_service_account.filestore_backup_runner](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account.filestore_backup_scheduler](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account_iam_binding.cloudscheduler_agent_filestore_backup_scheduler](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_binding) | resource |
@@ -108,7 +109,9 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_auto_backup_function_location"></a> [auto\_backup\_function\_location](#input\_auto\_backup\_function\_location) | Google Cloud Run Function location (region) for Google Filestore instance auto backup. | `string` | `null` | no |
+| <a name="input_auto_backup_function_mem"></a> [auto\_backup\_function\_mem](#input\_auto\_backup\_function\_mem) | Memory to allocate to the backup function | `string` | `"512Mi"` | no |
 | <a name="input_auto_backup_function_storage_bucket_name"></a> [auto\_backup\_function\_storage\_bucket\_name](#input\_auto\_backup\_function\_storage\_bucket\_name) | Google Cloud Run Function source bucket name for Filestore instance auto backup. | `string` | `null` | no |
+| <a name="input_auto_backup_retention"></a> [auto\_backup\_retention](#input\_auto\_backup\_retention) | Total number of backups to keep. Setting 0 keeps all | `number` | `0` | no |
 | <a name="input_auto_backup_schedule"></a> [auto\_backup\_schedule](#input\_auto\_backup\_schedule) | Google Cloud Scheduler job schedule (cron) for Google Filestore instance auto backup. | `string` | `"0 0 * * *"` | no |
 | <a name="input_auto_backup_time_zone"></a> [auto\_backup\_time\_zone](#input\_auto\_backup\_time\_zone) | Google Cloud Scheduler job time zone for Google Filestore instance auto backup. | `string` | `"Etc/UTC"` | no |
 | <a name="input_deletion_protection_enabled"></a> [deletion\_protection\_enabled](#input\_deletion\_protection\_enabled) | Google Filestore instance data deletion protection switch. | `bool` | `false` | no |
