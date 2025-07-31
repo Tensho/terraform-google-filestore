@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/Tensho/terraform-google-filestore/compare/v1.1.2...v1.2.0) (2025-07-31)
+
+
+### Features
+
+* **backups:** add basic backup retention policy ([#9](https://github.com/Tensho/terraform-google-filestore/issues/9)) ([7df1768](https://github.com/Tensho/terraform-google-filestore/commit/7df1768b8b9a4ec2362eac022a36687a28511ed3))
+
 ## [1.1.2](https://github.com/Tensho/terraform-google-filestore/compare/v1.1.1...v1.1.2) (2025-07-24)
 
 
