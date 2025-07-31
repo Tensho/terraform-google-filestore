@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/Tensho/terraform-google-filestore/compare/v1.2.0...v1.2.1) (2025-07-31)
+
+
+### Bug Fixes
+
+* make "file.viewer" iam role binding conditional ([2fb075a](https://github.com/Tensho/terraform-google-filestore/commit/2fb075ae88f49ec88cd40dba42c924345d0cd99e))
+
 ## [1.2.0](https://github.com/Tensho/terraform-google-filestore/compare/v1.1.2...v1.2.0) (2025-07-31)
 
 
