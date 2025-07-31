@@ -129,6 +129,8 @@ resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
 # Extra permissions for listing backups only 
 # Cannot easily be combined with above as file.backups.list do not appear to support conditional IAM.
 resource "google_project_iam_member" "filestore_backup_runner_list" {
+  count = var.enable_auto_backup ? 1 : 0
+
   project = local.project_id
   role    = "roles/file.viewer"
   member  = google_service_account.filestore_backup_runner[0].member
