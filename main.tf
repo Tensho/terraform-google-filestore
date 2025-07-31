@@ -116,7 +116,7 @@ resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
   ]
 
   condition {
-    title      = "${google_filestore_instance.default.name} instance"
+    title = "${google_filestore_instance.default.name} instance"
     expression = format(
       "resource.name.startsWith('projects/%s/locations/%s/backups/%s')",
       local.project_id,
@@ -130,7 +130,7 @@ resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
 # Cannot easily be combined with above as file.backups.list do not appear to support conditional IAM.
 resource "google_project_iam_member" "filestore_backup_runner_list" {
   project = local.project_id
-  role    = "roles/file.viewer" 
+  role    = "roles/file.viewer"
   member  = google_service_account.filestore_backup_runner[0].member
 }
 
