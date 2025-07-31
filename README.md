@@ -63,9 +63,8 @@ Check out comprehensive examples in [`tests`](./tests) folder.
 
 ![Filestore Auto Backup](https://raw.githubusercontent.com/Tensho/terraform-google-filestore/refs/heads/main/filestore-auto-backup.png)
 
-> [!WARNING]
-> This module doesn't implement backups cleanup.
-> The easiest way to implement it at storage level with [Google Cloud Storage Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) feature.
+> [!NOTE]
+> Backup retention/deletion is included as part of the automatic backup script (Cloud Function).
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements

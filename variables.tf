@@ -128,3 +128,9 @@ variable "auto_backup_function_storage_bucket_name" {
   type        = string
   default     = null
 }
+
+variable "auto_backup_retention" {
+  description = "Total number of backups to keep. Setting 0 keeps all"
+  type        = number
+  default     = 0
+}

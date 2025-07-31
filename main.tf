@@ -117,8 +117,21 @@ resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
 
   condition {
     title      = "${google_filestore_instance.default.name} instance"
-    expression = "resource.name.startsWith('projects/${local.project_id}/locations/${local.region}/backups/${google_filestore_instance.default.name}')"
+    expression = format(
+      "resource.name.startsWith('projects/%s/locations/%s/backups/%s')",
+      local.project_id,
+      local.region,
+      google_filestore_instance.default.name
+    )
   }
+}
+
+# Extra permissions for listing backups only 
+# Cannot easily be combined with above as file.backups.list do not appear to support conditional IAM.
+resource "google_project_iam_member" "filestore_backup_runner_list" {
+  project = local.project_id
+  role    = "roles/file.viewer" 
+  member  = google_service_account.filestore_backup_runner[0].member
 }
 
 resource "google_storage_bucket_object" "function_source" {
@@ -161,6 +174,7 @@ resource "google_cloudfunctions2_function" "backup" {
       INSTANCE_NAME            = google_filestore_instance.default.name
       INSTANCE_FILE_SHARE_NAME = google_filestore_instance.default.file_shares[0].name
       BACKUP_REGION            = local.region
+      BACKUP_RETENTION         = var.auto_backup_retention
     }
   }
 }
