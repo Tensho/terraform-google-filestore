@@ -58,7 +58,7 @@ Check out comprehensive examples in [`tests`](./tests) folder.
 ## Features
 
 * [x] Auto (scheduled) backups. Unfortunately Google doesn't support automatic Filestore instance backup out-of-the box
-([Google Issue Tracker](https://issuetracker.google.com/issues?q=filestore%20backup)). This module provides this functionality with Cloud Scheduler and Workflow services workaround
+([Google Issue Tracker](https://issuetracker.google.com/issues/379913586)). This module provides this functionality with Cloud Scheduler and Workflow services workaround
 ([Scheduling backups](https://cloud.google.com/filestore/docs/scheduling-backups)). Check out requirements section for more information.
 
 ![Filestore Auto Backup](https://raw.githubusercontent.com/Tensho/terraform-google-filestore/refs/heads/main/filestore-auto-backup.png)
