@@ -7,7 +7,7 @@ Terraform module to manage [Google Filestore](https://cloud.google.com/filestore
 ```hcl
 module "example" {
   source  = "Tensho/filestore/google"
-  version = "1.2.0"
+  version = "1.2.1"
 
   name        = "Example"
   description = "Managed by Terraform Test"
