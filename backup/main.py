@@ -92,7 +92,7 @@ def create_backup(request):
 
     try:
         logger.info(f"Triggering backup creation: {backup_id}")
-        r = session.post(url=trigger_run_url, headers=headers, data=json.dumps(post_data))
+        r = session.post(url=backups_url, headers=headers, data=json.dumps(post_data))
         logger.info("Backup successfully initiated.")
         r.raise_for_status()
     except Exception as e:
