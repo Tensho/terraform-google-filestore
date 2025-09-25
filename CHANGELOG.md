@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/Tensho/terraform-google-filestore/compare/v1.2.1...v1.2.2) (2025-09-23)
+
+
+### Bug Fixes
+
+* **backups:** backups_url variable reference ([#12](https://github.com/Tensho/terraform-google-filestore/issues/12)) ([b6642b0](https://github.com/Tensho/terraform-google-filestore/commit/b6642b071a7d7a42227c912830dd206b2eb96101))
+
 ## [1.2.1](https://github.com/Tensho/terraform-google-filestore/compare/v1.2.0...v1.2.1) (2025-07-31)
 
 
