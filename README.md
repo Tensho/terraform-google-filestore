@@ -66,6 +66,12 @@ Check out comprehensive examples in [`tests`](./tests) folder.
 > [!NOTE]
 > Backup retention/deletion is included as part of the automatic backup script (Cloud Function).
 
+![Backup Freshness Alerting](https://raw.githubusercontent.com/Tensho/terraform-google-filestore/refs/heads/main/backup-freshness-alert.png)
+
+* [x] Monitoring and alerting of backup "freshness".  The most recent backup is validation against the auto backup cron schedule with the result being exposed as a custom metric.
+
+
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 

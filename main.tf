@@ -103,6 +103,18 @@ resource "google_cloud_run_service_iam_binding" "filestore_backup_scheduler_invo
   ]
 }
 
+resource "google_cloud_run_service_iam_binding" "filestore_backup_freshness_invoker" {
+  count = var.enable_auto_backup ? 1 : 0
+
+  service = google_cloudfunctions2_function.backup_freshness[0].name
+
+  role = "roles/run.invoker"
+
+  members = [
+    google_service_account.filestore_backup_scheduler[0].member
+  ]
+}
+
 # Unfortunately, there is no resource-based IAM binding for Filestore instance resource
 resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
   count = var.enable_auto_backup ? 1 : 0
@@ -124,6 +136,18 @@ resource "google_project_iam_binding" "filestore_backup_runner_file_editor" {
       google_filestore_instance.default.name
     )
   }
+}
+
+resource "google_project_iam_binding" "filestore_backup_runner_metrics" {
+  count = var.enable_auto_backup ? 1 : 0
+
+  project = data.google_client_config.current[0].project
+
+  role = "roles/monitoring.metricWriter"
+
+  members = [
+    google_service_account.filestore_backup_runner[0].member
+  ]
 }
 
 # Extra permissions for listing backups only 
@@ -181,6 +205,42 @@ resource "google_cloudfunctions2_function" "backup" {
   }
 }
 
+resource "google_cloudfunctions2_function" "backup_freshness" {
+  count = var.enable_auto_backup ? 1 : 0
+
+  name        = "filestore-backup-freshness"
+  description = "Filestore Backup Freshness - Checks that the latest backup is fresh as per the defined cron"
+  location    = var.auto_backup_function_location
+
+  build_config {
+    runtime     = "python312"
+    entry_point = "check_backup_freshness"
+    source {
+      storage_source {
+        bucket = google_storage_bucket_object.function_source[0].bucket
+        object = google_storage_bucket_object.function_source[0].name
+      }
+    }
+  }
+
+  service_config {
+    max_instance_count    = 1
+    available_memory      = var.auto_backup_function_mem
+    timeout_seconds       = 60
+    service_account_email = google_service_account.filestore_backup_runner[0].email
+
+    environment_variables = {
+      PROJECT_ID               = local.project_id
+      INSTANCE_LOCATION        = google_filestore_instance.default.location
+      INSTANCE_NAME            = google_filestore_instance.default.name
+      INSTANCE_FILE_SHARE_NAME = google_filestore_instance.default.file_shares[0].name
+      BACKUP_REGION            = local.region
+      CRON_SCHEDULE            = var.auto_backup_schedule
+      METRIC                   = "custom.googleapis.com/filestore/backup_freshness_ok" 
+    }
+  }
+}
+
 resource "google_cloud_scheduler_job" "backup" {
   count = var.enable_auto_backup ? 1 : 0
 
@@ -197,6 +257,26 @@ resource "google_cloud_scheduler_job" "backup" {
     oidc_token {
       service_account_email = google_service_account.filestore_backup_scheduler[0].email
       audience              = google_cloudfunctions2_function.backup[0].url
+    }
+  }
+}
+
+resource "google_cloud_scheduler_job" "backup_freshness" {
+  count = var.enable_auto_backup ? 1 : 0
+
+  name        = "filestore-backup-freshness"
+  description = "Check filestore backups are still fresh"
+
+  schedule  = var.auto_backup_freshness_schedule
+  time_zone = var.auto_backup_time_zone
+
+  http_target {
+    http_method = "GET"
+    uri         = google_cloudfunctions2_function.backup_freshness[0].url
+
+    oidc_token {
+      service_account_email = google_service_account.filestore_backup_scheduler[0].email
+      audience              = google_cloudfunctions2_function.backup_freshness[0].url
     }
   }
 }
