@@ -2,3 +2,5 @@ functions-framework==3.*
 google-auth==2.29.0
 requests==2.31.0
 google-cloud-logging>=3.4.0
+google-cloud-monitoring==2.27.2
+cron-converter==1.2.2

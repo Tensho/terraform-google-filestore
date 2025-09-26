@@ -105,6 +105,12 @@ variable "auto_backup_schedule" {
   default     = "0 0 * * *"
 }
 
+variable "auto_backup_freshness_schedule" {
+  description = "Google Cloud Scheduler job schedule to check if the latest backup is fresh as per auto_backup_schedule"
+  type        = string
+  default     = "0 1 * * *"
+}
+
 variable "auto_backup_time_zone" {
   description = "Google Cloud Scheduler job time zone for Google Filestore instance auto backup."
   type        = string
