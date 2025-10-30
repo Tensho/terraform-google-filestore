@@ -203,8 +203,7 @@ export GOOGLE_ZONE=europe-west2-a
 
 ### Development & Testing
 
-By default, when you run the terraform test command, Terraform looks for `*.tftest.hcl` files in both the root directory 
-and in the `tests` directory.
+The `terraform test` command looks for `*.tftest.hcl` files in both root directory and `tests` directory.
 
 ```shell
 terraform init

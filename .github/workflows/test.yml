@@ -7,11 +7,13 @@ on:
   pull_request:
     types:
       - opened
-      - synchronize
+      - synchronize # Adam fucked up CI, I don't want others trigger it
+                    # I want to run it only on release branch, which I control
 
 permissions:
   id-token: write
   contents: read
+  pull-requests: write # 
 
 jobs:
   test:
@@ -25,18 +27,18 @@ jobs:
           - tests/advanced.tftest.hcl
           - tests/validations.tftest.hcl
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
         with:
           terraform_version: "1.7.0"
 
-      - uses: google-github-actions/auth@v2
+      - run: terraform fmt -check
+
+      - uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed # v2.1.13
         with:
           workload_identity_provider: projects/${{ vars.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-oidc/providers/github-oidc
           service_account: github-oidc@${{ vars.GCP_PROJECT_ID }}.iam.gserviceaccount.com
-
-      - run: terraform fmt -check
 
       - run: terraform init
 
